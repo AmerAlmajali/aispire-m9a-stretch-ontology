@@ -1,0 +1,148 @@
+@prefix :     <http://example.org/cars#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# ==========================
+#  CLASSES
+# ==========================
+
+:Car   a rdfs:Class ;
+    skos:prefLabel "Car"@en ;
+    skos:altLabel  "Automobile"@en .
+
+:Sedan a rdfs:Class ;
+    rdfs:subClassOf :Car ;
+    skos:prefLabel "Sedan"@en ;
+    skos:altLabel  "Saloon"@en .
+
+:SUV   a rdfs:Class ;
+    rdfs:subClassOf :Car ;
+    skos:prefLabel "SUV"@en ;
+    skos:altLabel  "Sport Utility Vehicle"@en .
+
+:Coupe a rdfs:Class ;
+    rdfs:subClassOf :Car ;
+    skos:prefLabel "Coupe"@en ;
+    skos:altLabel  "Sports Car"@en .
+
+:Brand a rdfs:Class ;
+    skos:prefLabel "Car Brand"@en ;
+    skos:altLabel  "Manufacturer"@en .
+
+# ==========================
+#  PROPERTIES
+# ==========================
+
+:brand       a rdf:Property ; rdfs:label "brand"@en ;
+    rdfs:domain :Car ; rdfs:range :Brand .
+
+:model       a rdf:Property ; rdfs:label "model"@en ;
+    rdfs:domain :Car ; rdfs:range xsd:string .
+
+:year        a rdf:Property ; rdfs:label "year introduced"@en ;
+    rdfs:domain :Car ; rdfs:range xsd:gYear .
+
+:country     a rdf:Property ; rdfs:label "country of origin"@en ;
+    rdfs:domain :Brand ; rdfs:range xsd:string .
+
+:founded     a rdf:Property ; rdfs:label "year founded"@en ;
+    rdfs:domain :Brand ; rdfs:range xsd:gYear .
+
+# OPTIONAL — not every car has these
+:horsepower  a rdf:Property ; rdfs:label "horsepower"@en ;
+    rdfs:domain :Car ; rdfs:range xsd:integer .
+
+:isElectric  a rdf:Property ; rdfs:label "is electric"@en ;
+    rdfs:domain :Car ; rdfs:range xsd:boolean .
+
+# ==========================
+#  BRANDS
+# ==========================
+
+:Toyota  a :Brand ; skos:prefLabel "Toyota"@en ;
+    :country "Japan" ; :founded "1937"^^xsd:gYear .
+
+:Honda   a :Brand ; skos:prefLabel "Honda"@en ;
+    :country "Japan" ; :founded "1948"^^xsd:gYear .
+
+:Ford    a :Brand ; skos:prefLabel "Ford"@en ;
+    :country "USA" ; :founded "1903"^^xsd:gYear .
+
+:BMW     a :Brand ; skos:prefLabel "BMW"@en ;
+    :country "Germany" ; :founded "1916"^^xsd:gYear .
+
+:Porsche a :Brand ; skos:prefLabel "Porsche"@en ;
+    :country "Germany" ; :founded "1931"^^xsd:gYear .
+
+:Tesla   a :Brand ; skos:prefLabel "Tesla"@en ;
+    :country "USA" ; :founded "2003"^^xsd:gYear .
+
+# ==========================
+#  SEDANS
+# ==========================
+
+:Camry    a :Sedan ;
+    skos:prefLabel "Toyota Camry"@en ;
+    :brand :Toyota ; :model "Camry" ;
+    :year "1982"^^xsd:gYear ; :horsepower 203 .
+
+:Accord   a :Sedan ;
+    skos:prefLabel "Honda Accord"@en ;
+    :brand :Honda ; :model "Accord" ;
+    :year "1976"^^xsd:gYear ; :horsepower 192 .
+
+:BMW3     a :Sedan ;
+    skos:prefLabel "BMW 3 Series"@en ;
+    skos:altLabel  "BMW 330i"@en ;
+    :brand :BMW ; :model "3 Series" ;
+    :year "1975"^^xsd:gYear ; :horsepower 255 .
+
+# ==========================
+#  SUVs
+# ==========================
+
+:RAV4     a :SUV ;
+    skos:prefLabel "Toyota RAV4"@en ;
+    :brand :Toyota ; :model "RAV4" ;
+    :year "1994"^^xsd:gYear ; :horsepower 203 .
+
+:Bronco   a :SUV ;
+    skos:prefLabel "Ford Bronco"@en ;
+    :brand :Ford ; :model "Bronco" ;
+    :year "1966"^^xsd:gYear ; :horsepower 300 .
+
+:BMWX5    a :SUV ;
+    skos:prefLabel "BMW X5"@en ;
+    :brand :BMW ; :model "X5" ;
+    :year "1999"^^xsd:gYear ; :horsepower 335 .
+
+:ModelY   a :SUV ;
+    skos:prefLabel "Tesla Model Y"@en ;
+    :brand :Tesla ; :model "Model Y" ;
+    :year "2020"^^xsd:gYear ;
+    :isElectric true .
+    # horsepower intentionally omitted — electric motors don't have a simple HP figure across trims
+
+# ==========================
+#  COUPES
+# ==========================
+
+:Porsche911 a :Coupe ;
+    skos:prefLabel "Porsche 911"@en ;
+    skos:altLabel  "911"@en ;
+    :brand :Porsche ; :model "911" ;
+    :year "1963"^^xsd:gYear ; :horsepower 379 .
+
+:BMW4     a :Coupe ;
+    skos:prefLabel "BMW 4 Series"@en ;
+    :brand :BMW ; :model "4 Series" ;
+    :year "2013"^^xsd:gYear ; :horsepower 255 .
+
+:ModelS   a :Coupe ;
+    skos:prefLabel "Tesla Model S"@en ;
+    :brand :Tesla ; :model "Model S" ;
+    :year "2012"^^xsd:gYear ;
+    :isElectric true .
+    # horsepower intentionally omitted — OPTIONAL property demo
